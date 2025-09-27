@@ -3,40 +3,68 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Countdown Counter</title>
+  <title>Problem Counter</title>
   <style>
     body {
-      font-family: Arial, sans-serif;
+      font-family: 'Segoe UI', sans-serif;
+      background-color: #121212;
+      color: #ffffff;
       text-align: center;
-      background: #f2f2f2;
       padding: 40px;
     }
+
     h1 {
       font-size: 2em;
       margin-bottom: 20px;
     }
+
     #count {
       font-size: 5em;
-      color: #333;
+      margin-bottom: 20px;
+      color: #00ffcc;
     }
-    button {
+
+    input[type="number"] {
       font-size: 1.2em;
-      margin: 10px;
+      padding: 5px 10px;
+      width: 100px;
+      text-align: center;
+      margin-bottom: 10px;
+    }
+
+    button {
+      font-size: 1.1em;
+      margin: 10px 5px;
       padding: 10px 20px;
       cursor: pointer;
+      background-color: #00ffcc;
+      border: none;
+      border-radius: 5px;
+      color: #000;
+      transition: background-color 0.2s;
+    }
+
+    button:hover {
+      background-color: #00ddb3;
     }
   </style>
 </head>
 <body>
 
   <h1>📘 Problems Left</h1>
+
   <div id="count">80</div>
+
+  <div>
+    <input type="number" id="startNumber" placeholder="Set number" />
+    <button onclick="setCount()">Set</button>
+  </div>
 
   <button onclick="decrease()">−1</button>
   <button onclick="reset()">Reset</button>
 
   <script>
-    // Load count from localStorage or set to 80
+    // Initialize count from localStorage or default
     let count = localStorage.getItem('count') ? parseInt(localStorage.getItem('count')) : 80;
     const countDisplay = document.getElementById('count');
 
@@ -57,7 +85,18 @@
       updateDisplay();
     }
 
-    // Initialize display
+    function setCount() {
+      const input = document.getElementById('startNumber').value;
+      const newCount = parseInt(input);
+      if (!isNaN(newCount) && newCount >= 0) {
+        count = newCount;
+        updateDisplay();
+      } else {
+        alert("Please enter a valid number.");
+      }
+    }
+
+    // Display initial count
     updateDisplay();
   </script>
 
